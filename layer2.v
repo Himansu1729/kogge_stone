@@ -38,8 +38,8 @@ module layer2(P, G, CIN, OUTP2, OUTG2, CIN2);
         .G20(OUTG2[2])
     );
 
-    genvar i; 
-    generate               // Indices 3 to 15 are passed through black cells
+    genvar i;            // Indices 3 to 15 are passed through black cells
+    generate             // outputting both G and P 
         for(i=3;i<16;i=i+1) begin : black_cell_loop
             black_cell inst(
                 .G21(G[i]),
