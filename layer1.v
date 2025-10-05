@@ -1,4 +1,5 @@
-// Comes after PG layer and contains 1 gray cell
+// Comes after PG layer and contains 1 gray cell,
+// 1 buffer and 15 black cells
 
 // Takes 16 G inputs from 0 to 15 and outputs also
 // 16 G at indices 0 to 15
