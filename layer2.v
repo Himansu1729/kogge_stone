@@ -3,8 +3,8 @@
 // Takes 16 G inputs from 0 to 15 and outputs also
 // 16 G inputs at indices 0 to 15
 
-// Takes 15 G inputs from 1 to 15 and outputs also
-// 13 G inputs at indices 3 to 15
+// Takes 15 P inputs from 1 to 15 and outputs 
+// 13 P at indices 3 to 15
 
 module layer2(P, G, CIN, OUTP2, OUTG2, CIN2);
     input [15:0] G;
@@ -25,7 +25,7 @@ module layer2(P, G, CIN, OUTP2, OUTG2, CIN2);
     );
 
     gray_cell inst1(      // Index 1 is passed through gray cell and CIN is required 
-        .G21(G[1]),
+        .G21(G[1]),       // outputting only G
         .P21(P[1]),
         .G10(CIN),
         .G20(OUTG2[1])
