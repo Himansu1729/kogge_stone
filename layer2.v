@@ -1,4 +1,5 @@
-// Comes after layer 1 and contains 2 gray cells
+// Comes after layer 1 and contains 2 gray cells,
+// 2 buffers and 13 black cells
 
 // Takes 16 G inputs from 0 to 15 and also outputs
 // 16 G at indices 0 to 15
