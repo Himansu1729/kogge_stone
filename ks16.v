@@ -1,5 +1,15 @@
+// Here we are assembling the DUT which is a Kogge-Stone adder
+// We have taken a layer-by-layer approach. The inputs A nd B go into the PG layer
+// and then the connection is like pg_layer-layer1-layer2-layer4-layer8-sum_layer
+// Then finally at the output of sum layer we get the 16-bit SUM and COUT
+
+// The module is arranged as an input and an output register
+// separated by a combinational block in between which is
+// the Kogge Stone
+
+// Asynchronous reset and positive-edge trigerred clock 
 module ks16(A, B, CIN, CLK, RST_N, SUM, COUT);
-    input [15:0] A, B;
+    input [15:0] A, B;                // Input wires - A, B 
     input CIN, CLK, RST_N;
     output [15:0] SUM;
     output COUT;
@@ -17,14 +27,14 @@ module ks16(A, B, CIN, CLK, RST_N, SUM, COUT);
 
     wire C1, C2, C4, C8, P15;
 
-    layer_pg inst1(
+    layer_pg inst1(                       // PG layer
         .A(INPUT_REG[32:17]),
         .B(INPUT_REG[16:1]),
         .P_OUT(T0P),
         .G_OUT(T0G)
     );
 
-    layer1 l1(
+    layer1 l1(                           // Layer 1
         .P(T0P),
         .G(T0G),
         .CIN(CIN),
@@ -33,7 +43,7 @@ module ks16(A, B, CIN, CLK, RST_N, SUM, COUT);
         .CIN1(C1)
     );
 
-    layer2 l2(
+    layer2 l2(                          // Layer 2
         .P(T1P),
         .G(T1G),
         .CIN(C1),
@@ -42,7 +52,7 @@ module ks16(A, B, CIN, CLK, RST_N, SUM, COUT);
         .CIN2(C2)
     );
 
-    layer4 l4(
+    layer4 l4(                         // Layer 4
         .P(T2P),
         .G(T2G),
         .CIN(C2),
@@ -51,7 +61,7 @@ module ks16(A, B, CIN, CLK, RST_N, SUM, COUT);
         .CIN4(C4)
     );
 
-    layer8 l8(
+    layer8 l8(                        // Layer 8
         .P(T3P),
         .G(T3G),
         .CIN(C4),
@@ -60,7 +70,7 @@ module ks16(A, B, CIN, CLK, RST_N, SUM, COUT);
         .CIN8(C8)
     );
 
-    sum_layer s1(
+    sum_layer s1(                    // SUM Layer
         .P(T0P),
         .C(T4G),
         .P15(P15),
@@ -70,7 +80,8 @@ module ks16(A, B, CIN, CLK, RST_N, SUM, COUT);
     );
 
     always @ (posedge CLK or negedge RST_N) begin
-    if (RST_N == 1'b0)
+    // Active-low reset    
+    if (RST_N == 1'b0)                        
         begin 
             INPUT_REG <= 33'b0; 
             OUTPUT_REG <= 17'b0;
@@ -82,5 +93,5 @@ module ks16(A, B, CIN, CLK, RST_N, SUM, COUT);
         end
     end
 
-    assign {COUT,SUM} = OUTPUT_REG;
+    assign {COUT,SUM} = OUTPUT_REG; // Output wires - COUT, SUM
 endmodule
