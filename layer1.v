@@ -1,5 +1,11 @@
 // Comes after PG layer and contains 1 gray cell
 
+// Takes 16 G inputs from 0 to 15 and outputs also
+// 16 G inputs at indices 0 to 15
+
+// Takes 16 P inputs from 0 to 15 and outputs 
+// 15 P at indices 1 to 15
+
 module layer1(P, G, CIN, OUTP1, OUTG1, CIN1);
     input [15:0] P, G;
 	 input CIN;
@@ -13,14 +19,14 @@ module layer1(P, G, CIN, OUTP1, OUTG1, CIN1);
     );
 
 	gray_cell gc1(		    // Index 0 has a gray cell and requires CIN
-        .G21(G[0]),
+		.G21(G[0]),			// generating only G
         .P21(P[0]),
         .G10(CIN),
         .G20(OUTG1[0])      
     );
 
-    genvar i; 
-    generate  				// Index 1-16 have black cells 
+    genvar i; 			   // Index 1-16 have black cells 
+    generate  			   // creating both G and P
 		for(i=1;i<16;i=i+1) begin : black_cell_loop   
             black_cell inst(
                 .G21(G[i]),
