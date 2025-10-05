@@ -1,6 +1,9 @@
-// Here we use the generate to loop through a 16 bits and 
-// compute the corresponding P (propagation) & G (generate) bits
 // This is the first layer of a Kogge-Stone adder
+// Here we generate 16 bits of P and G, bit-by-bit
+// correspinding to the 16 bits of A and B using pg_generator
+
+// Pi = Ai xor Bi
+// Gi = Ai and Bi
 
 module layer_pg(A, B, P_OUT, G_OUT);
     input [15:0] A, B;
