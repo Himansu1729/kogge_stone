@@ -1,7 +1,7 @@
 // Comes after layer 1 and contains 2 gray cells
 
-// Takes 16 G inputs from 0 to 15 and outputs also
-// 16 G inputs at indices 0 to 15
+// Takes 16 G inputs from 0 to 15 and also outputs
+// 16 G at indices 0 to 15
 
 // Takes 15 P inputs from 1 to 15 and outputs 
 // 13 P at indices 3 to 15
